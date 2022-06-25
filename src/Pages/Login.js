@@ -18,7 +18,7 @@ class Login extends React.Component {
             this.onChange = this.onChange.bind(this);
     }
     handleSubmit = () =>{
-        debugger
+//         debugger
         console.log('login')
         let inputData = {
 			email: this.state.username,
@@ -40,7 +40,7 @@ class Login extends React.Component {
         let self=this
         APIRequest.getPostService(LoginUser, inputData)
 			.then((result) => {
-                debugger
+//                 debugger
 				if (result.status === 200) {
            console.log('Logged In : ',result)
            alert("login successfully")
@@ -48,7 +48,7 @@ class Login extends React.Component {
 				}
 			})
 			.catch((error) => {
-                debugger
+//                 debugger
 			 console.log(error)
              alert("UserName & Password incorrect please try again")
              self.setState({...this.state,isLogin:false});
