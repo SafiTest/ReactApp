@@ -40,7 +40,7 @@ class Registration extends React.Component {
     this.openPayModal = this.openPayModal.bind(this);
   }
   handleSubmit = () => {
-    debugger
+//     debugger
     console.log('login')
     let inputData = {
       name: this.state.name,
@@ -74,7 +74,7 @@ class Registration extends React.Component {
   }
 
   onChange(e) {
-    debugger
+//     debugger
     this.setState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
   handleOk() {
@@ -97,7 +97,7 @@ class Registration extends React.Component {
 
 
   openPayModal() {
-    debugger
+//     debugger
     var amount = this.state.amount * 100; //Razorpay consider the amount in paise
 var self=this
     let inputData = {
@@ -131,7 +131,7 @@ var self=this
       "description": "",
       'order_id': "",
       "handler": function (response) {
-        debugger
+//         debugger
         console.log(response);
         var values = {
           razorpay_signature: response.razorpay_signature,
@@ -146,14 +146,14 @@ var self=this
           console.log('login', inputData)
           APIRequest.getPostService(SignupUser, inputData)
             .then((result) => {
-              debugger
+//               debugger
               if (result.status === 201) {
                
                 self.setState((prev) => ({ ...prev, isModalVisible: false, amount: 0, type: "" }),()=> alert("Signup successfully"));
               }
             })
             .catch((error) => {
-              debugger
+//               debugger
               console.log(error)
             }, 2000)
         }
@@ -173,7 +173,7 @@ var self=this
     };
     APIRequest.getPostService(CreateOrder, { "amount": amount, "currency": "INR" })
       .then(res => {
-        debugger
+//         debugger
         options.order_id = res.id;
         options.amount = res.amount;
         console.log(options)
