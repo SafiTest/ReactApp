@@ -24,7 +24,7 @@ const ForgotPasswords=()=>{
    return result;
  }
  const onsave =(e)=>{
-     debugger
+//      debugger
     let result=passwordcheck();
 if(result===true){
    let inputData1 = {
@@ -33,7 +33,7 @@ if(result===true){
 		}
            APIRequest.getPostService(ForgotPassword, inputData1)
 			.then((result) => {
-                debugger
+//                 debugger
 				if (result.status === 200) {
            console.log('Logged In : ',result)
            setdata((prev)=>({ ...prev,email:" ",
@@ -44,7 +44,7 @@ if(result===true){
 				}
 			})
 			.catch((error) => {
-                debugger
+//                 debugger
 			 console.log(error)
              setdata((prev)=>({ ...prev,email:" ",
              password:" ",
