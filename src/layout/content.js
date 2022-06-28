@@ -16,18 +16,15 @@ class contentArea extends React.Component {
 	render() {
 		return (
 			<div>
-				<Content>
 					<Switch>
+						<Route exact path="/" component={registration} />
 						<Route exact path={ROUTES.LOGIN} component={login} />
 						<Route exact path={ROUTES.TABLELIST} component={tableList} />
-						<Route exact path={ROUTES.REGISTRATION} component={registration} />
 						<Route exact path={ROUTES.FORGOTPASSWORD} component={Forgot} />
 					</Switch>
-				</Content>
 			</div>
 		)
 	}
 }
 
 export default withRouter(contentArea)
-
