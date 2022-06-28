@@ -30,3 +30,4 @@ class contentArea extends React.Component {
 }
 
 export default withRouter(contentArea)
+
