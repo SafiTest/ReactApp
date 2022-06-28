@@ -76,3 +76,4 @@ class footerArea extends React.Component {
 }
 
 export default footerArea
+
