@@ -8,7 +8,7 @@ class footerArea extends React.Component {
 	render() {
 		return (
             <>
-				<div className="footer-section-option">
+				{/* <div className="footer-section-option">
                     <Row gutter={[16, 16]}>
                     <Col span={6}>
                    <Anchor affix={false}>
@@ -48,7 +48,7 @@ class footerArea extends React.Component {
                     </Anchor> 
                     </Col>
                     </Row>
-                </div>
+                </div> */}
                 <div className="footer-section-copyright-header">
                 <Row gutter={[16, 16]}>
                 <Col span={8}> 
@@ -76,4 +76,3 @@ class footerArea extends React.Component {
 }
 
 export default footerArea
-
