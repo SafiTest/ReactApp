@@ -2,24 +2,45 @@
 import React, { Fragment } from "react"
 import "antd/dist/antd.min.css";
 import "../Styles/custom.css"
-import { Table, Input, Button, Space, Row, Col } from 'antd';
+import { Table, Input, Button, Space, Spin } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { SearchOutlined } from '@ant-design/icons';
 import {sData} from './data'
+import { APIRequest, GetMembershipList} from "./../APIManager"
 
 class TableList extends React.Component {
     constructor(props) {
             super(props);
             this.state = {
-                data: sData,
+                data: [],
 tabledata:[],
 searchText: '',
     searchedColumn: '',
+    loading : false,
+    selectedRowKeys: [],
             }
+            this.fetch = this.fetch.bind(this);
         }
-    
+    fetch(){
+      debugger
+      this.setState({loading:true});
+APIRequest.getGetService(GetMembershipList)
+        .then((result) => {
+            debugger
+            if (result.status === 200) {
+              this.setState({...this.state,data:result.result,loading:false})
+       console.log('User List Data : ',result)
+            }
+        })
+        .catch((error) => {
+            debugger
+            this.setState({loading:false});
+         console.log(error)
+        }, 2000)
+    }
         componentDidMount() {
         this.setState({...this.state,tabledata:this.state.data})
+       this.fetch();
         }
         getColumnSearchProps = dataIndex => ({
             filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
@@ -99,6 +120,12 @@ searchText: '',
             this.setState({ searchText: '' });
           };
           
+          onSelectChange = selectedRowKeys => {
+            debugger
+            console.log('selectedRowKeys changed: ', selectedRowKeys);
+            this.setState({ selectedRowKeys });
+          };
+
     render() {
          const columns = [ 
  { 
@@ -165,9 +192,17 @@ searchText: '',
  ...this.getColumnSearchProps('mobile'),
 } 
 ]; 
+const { selectedRowKeys } = this.state;
+
+const hasSelected = selectedRowKeys.length > 0;
+const rowSelection = {
+  selectedRowKeys,
+  onChange: this.onSelectChange,
+};
             return (
             
 <>
+<Spin tip="Loading..." spinning={this.state.loading}>
 <div className=" banner-section theme-banner ">
     <div className="breadcrumbs-container">
         <div className="row">
@@ -182,10 +217,16 @@ searchText: '',
     </div>
 </div>
                 <div className="bg-white py-8 font-sans table-content-container">
+                <span style={{ marginLeft: 8 }}>
+          {hasSelected ? `Selected ${this.state.selectedRowKeys.length} items` : ''}
+        </span>
                 {this.state.data.length > 0 ? (
-                    <Table dataSource={this.state.data} columns={columns}/>
+                    <Table 
+                    rowSelection={rowSelection} dataSource={this.state.data} columns={columns}
+        rowKey={(items) => items._id}/>
             ) : <h1>No Data</h1> }
                 </div>
+                </Spin>
                 </>
                 
             )
@@ -193,4 +234,3 @@ searchText: '',
 }
 
 export default TableList
-
