@@ -662,3 +662,4 @@ var self=this
 }
 
 export default (withRouter(Registration))
+
