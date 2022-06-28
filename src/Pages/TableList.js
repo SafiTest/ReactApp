@@ -193,3 +193,4 @@ searchText: '',
 }
 
 export default TableList
+
