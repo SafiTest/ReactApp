@@ -295,7 +295,7 @@ var self=this
               rules={[{ required: true, message: 'Please input your name!' }]}
             >
               <Input
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="name"
                 id='name'
                 type='text'
@@ -315,7 +315,7 @@ var self=this
               rules={[{ required: true, message: 'Please input your branch!' }]}
             >
               <Input
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="branch"
                 id='branch'
                 type='text'
@@ -335,7 +335,7 @@ var self=this
               rules={[{ required: true, message: 'Please input your email!' }]}
             >
               <Input
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="email"
                 id='email'
                 type='email'
@@ -358,7 +358,7 @@ var self=this
                 minLength={4}
                 maxLength={4}
                 type='text'
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="yearofPassing"
                 id='yearofPassing'
                 name='yearofPassing'
@@ -377,7 +377,7 @@ var self=this
               rules={[{ required: true, message: 'Please input your year of occupation!' }]}
             >
               <Input
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="occupation"
                 id='occupation'
                 type='text'
@@ -397,7 +397,7 @@ var self=this
               rules={[{ required: true, message: 'Please input your year of current Company Name!' }]}
             >
               <Input
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="currentCompanyName"
                 id='currentCompanyName'
                 type='text'
@@ -417,7 +417,7 @@ var self=this
               rules={[{ required: true, message: 'Please input your year of area of Expertise!' }]}
             >
               <Input
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="areaofExpertise"
                 id='areaofExpertise'
                 type='text'
@@ -437,7 +437,7 @@ var self=this
               rules={[{ required: true, message: 'Please input your year of country!' }]}
             >
               <Input
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="country"
                 id='country'
                 type='text'
@@ -460,7 +460,7 @@ var self=this
                 minLength={10}
                 maxLength={10}
                 type='text'
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="mobile"
                 id='mobile'
                 name='mobile'
@@ -479,7 +479,7 @@ var self=this
               rules={[{ required: true, message: 'Please input your year of address!' }]}
             >
               <Input
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="address"
                 id='address'
                 type='text'
@@ -499,7 +499,7 @@ var self=this
               rules={[{ required: true, message: 'Please input your year of street!' }]}
             >
               <Input
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="street"
                 id='street'
                 type='text'
@@ -519,7 +519,7 @@ var self=this
               rules={[{ required: true, message: 'Please input your year of city!' }]}
             >
               <Input
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="city"
                 id='city'
                 type='text'
@@ -542,7 +542,7 @@ var self=this
                 minLength={6}
                 maxLength={6}
                 type='text'
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="postalcode"
                 id='postalcode'
                 name='postalcode'
@@ -561,7 +561,7 @@ var self=this
               rules={[{ required: true, message: 'Please input your year of joiningDate!' }]}
             >
               <Input
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 placeholder="joiningDate"
                 id='joiningDate'
                 type='text'
@@ -588,7 +588,7 @@ var self=this
               <Input.Password
                 minLength={6}
                 maxLength={12}
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 id='password'
                 type='password'
                 placeholder='password'
@@ -621,7 +621,7 @@ var self=this
               <Input.Password
                 minLength={6}
                 maxLength={12}
-                style={{ borderRadius: " 25px" }}
+                // style={{ borderRadius: " 25px" }}
                 id='confirmPassword'
                 type='Password'
                 placeholder='confirmPassword'
@@ -662,4 +662,3 @@ var self=this
 }
 
 export default (withRouter(Registration))
-
