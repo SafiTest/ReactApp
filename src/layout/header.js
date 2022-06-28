@@ -11,3 +11,4 @@ class headerArea extends React.Component {
 }
 
 export default headerArea
+
