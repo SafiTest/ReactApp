@@ -105,7 +105,7 @@ class Login extends React.Component {
         rules={[{ required: true, message: 'Please input your username!' }]}
       >
         <Input 
-        placeholder="username"
+        placeholder="email"
         id='username'
         type='email'
         name='username'
