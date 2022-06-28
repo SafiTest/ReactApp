@@ -18,7 +18,7 @@ class Login extends React.Component {
             this.onChange = this.onChange.bind(this);
     }
     handleSubmit = () =>{
-//         debugger
+        debugger
         console.log('login')
         let inputData = {
 			email: this.state.username,
@@ -39,12 +39,15 @@ class Login extends React.Component {
         console.log('login',inputData)
         let self=this
         APIRequest.getPostService(LoginUser, inputData)
-			.then((result) => {
-//                 debugger
-				if (result.status === 200) {
-           console.log('Logged In : ',result)
-           alert("login successfully")
+			.then((res) => {
+                debugger
+				if (res.status === 200) {
+           console.log('Logged In : ',res)
+           alert("Login successfully")
            self.setState({...this.state,isLogin:true});
+           localStorage.setItem("AcTech_token",res.token)
+           localStorage.setItem("User_name", res.result.name)
+           localStorage.setItem("User_email", res.result.email)
 				}
 			})
 			.catch((error) => {
@@ -70,8 +73,8 @@ class Login extends React.Component {
 
             return (
             
-<>
-<div className=" banner-section theme-banner ">
+<div style={{height: "calc(80vh)"}}>
+<div className=" banner-section theme-banner " >
     <div className="breadcrumbs-container">
         <div className="row">
             <div className="col">
@@ -102,7 +105,6 @@ class Login extends React.Component {
         rules={[{ required: true, message: 'Please input your username!' }]}
       >
         <Input 
-        style={{ borderRadius: " 25px" }}
         placeholder="username"
         id='username'
         type='email'
@@ -126,8 +128,6 @@ class Login extends React.Component {
         initialValue={this.state.password}
       >
         <Input.Password  
-        minLength={6}
-        style={{ borderRadius: " 25px" }}
         id='password'
         type='password'
         placeholder='password'
@@ -139,9 +139,6 @@ class Login extends React.Component {
 
       <Form.Item >
         <button 
-        style={{
-				backgroundColor: "#0FA6C9",
-			}} 
          type='submit'
          className="login-form-btn"
          >
@@ -150,11 +147,10 @@ class Login extends React.Component {
       </Form.Item>
     </Form>
 
-                </>
+                </div>
                 
             )
     }
 }
 
 export default (withRouter(Login))
-
