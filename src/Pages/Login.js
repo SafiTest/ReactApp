@@ -4,6 +4,7 @@ import "../Styles/custom.css"
 import { Form, Input } from "antd"
 import { withRouter, Redirect } from "react-router-dom"
 import { APIRequest, LoginUser ,ExcelfileRead,Alluser,ForgotPassword} from "./../APIManager"
+import { ROUTES } from "../routing/routeConstants";
 
 
 class Login extends React.Component {
@@ -48,6 +49,11 @@ class Login extends React.Component {
            localStorage.setItem("AcTech_token",res.token)
            localStorage.setItem("User_name", res.result.name)
            localStorage.setItem("User_email", res.result.email)
+           let flag="20a5eebb-5247-494c-befe-81a91de7ec96"
+           if(res.result.UserFlag==="Admin"){
+            flag="b02d1971-7c8c-4ec4-b158-4dc85ba2c9da"
+           }
+           localStorage.setItem("User_flag", flag)
 				}
 			})
 			.catch((error) => {
@@ -68,7 +74,7 @@ class Login extends React.Component {
         }
     render() {
         if (this.state.isLogin) {
-			return <Redirect to={{ pathname: "tableList" }} />
+			return <Redirect to={{ pathname: ROUTES.HOME }} />
 		}
 
             return (

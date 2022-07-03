@@ -5,3 +5,6 @@ export const CreateOrder="/createOrder";
 export const ExcelfileRead="/excelFileRead";
 export const Alluser="/allUser";
 export const ForgotPassword="/forgotPassword"
+export const GetPendingList="/pending"
+export const GetRejectedList="/rejectlist"
+export const UpdateStatus="/status"

@@ -1,13 +1,13 @@
 import React, { Fragment } from "react"
 import "antd/dist/antd.min.css"
 import "../Styles/custom.css"
-import { Table, Input, Button, Space, Spin } from "antd"
+import { Table, Input, Button, Space, Spin, Divider } from "antd"
 import Highlighter from "react-highlight-words"
 import { SearchOutlined } from "@ant-design/icons"
 import { sData } from "./data"
-import { APIRequest, GetMembershipList } from "./../APIManager"
+import { APIRequest, GetMembershipList } from "../APIManager"
 
-class TableList extends React.Component {
+class ApprovedList extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -202,13 +202,13 @@ class TableList extends React.Component {
 		}
 		return (
 			<>
-				<Spin tip='Loading...' spinning={this.state.loading}>
+				<Spin tip='Loading...' style={{margin:0,padding:0}} spinning={this.state.loading}>
 					<div className=' banner-section theme-banner '>
 						<div className='breadcrumbs-container'>
 							<div className='row'>
 								<div className='col'>
 									<div className='banner-content'>
-										<h1 className='banner__page-title'>Member List</h1>
+										<h1 className='banner__page-title'>Approved List</h1>
 										<div className='breadcrumbs-section'>
 											<div id='crumbs' className='breadcrumbs'>
 												<span typeof='v:Breadcrumb'>
@@ -216,7 +216,7 @@ class TableList extends React.Component {
 														Home
 													</a>
 												</span>{" "}
-												/ <span className='current'>Member List</span>
+												/ <span className='current'>Approved List</span>
 											</div>{" "}
 										</div>
 									</div>
@@ -225,11 +225,14 @@ class TableList extends React.Component {
 						</div>
 					</div>
 					<div className='bg-white py-8 font-sans table-content-container'>
+                        <div className="">
+                       
 						<span style={{ marginLeft: 8 }}>
 							{hasSelected ? `Selected ${this.state.selectedRowKeys.length} items` : ""}
 						</span>
-						<Button>Approve</Button>
-						<Button>Reject</Button>
+                        </div>
+						{/* <Button>Approve</Button>
+						<Button>Reject</Button> */}
 						{this.state.data.length > 0 ? (
 							<Table
 								rowSelection={rowSelection}
@@ -247,4 +250,4 @@ class TableList extends React.Component {
 	}
 }
 
-export default TableList
+export default ApprovedList

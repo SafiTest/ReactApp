@@ -131,7 +131,7 @@ var self=this
       "description": "",
       'order_id': "",
       "handler": function (response) {
-//         debugger
+
         console.log(response);
         var values = {
           razorpay_signature: response.razorpay_signature,
@@ -146,7 +146,7 @@ var self=this
           console.log('login', inputData)
           APIRequest.getPostService(SignupUser, inputData)
             .then((result) => {
-//               debugger
+                             debugger
               if (result.status === 201) {
                
                 self.setState((prev) => ({ ...prev, isModalVisible: false, amount: 0, type: "" }),()=> alert("Signup successfully"));

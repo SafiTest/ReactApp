@@ -5,7 +5,7 @@ import ContentPage from "./content"
 import HeaderPage from "./header"
 import FooterPage from "./footer"
 import './../Styles/custom.css'
-import { LogoutOutlined } from '@ant-design/icons';
+import { CaretDownOutlined, LogoutOutlined } from '@ant-design/icons';
 import { ROUTES } from "../routing/routeConstants"
 
 
@@ -28,7 +28,7 @@ class LayoutArea extends React.Component {
     this.props.history.push({ pathname: ROUTES.REGISTRATION })
 	}
   clkForgotPassword = () => {
-    this.props.history.push({ pathname: ROUTES.TABLELIST })
+    this.props.history.push({ pathname: ROUTES.FORGOTPASSWORD })
 	}
 
   handleRegister =() =>{
@@ -46,8 +46,8 @@ class LayoutArea extends React.Component {
     console.log('user details',userdetails, useremail);
 		return (
 			<>
-					<Layout  className="layout">
-						<Header>
+					<Layout   className="layout publiclayout">
+						<Header  id="publiclayout">
               <Row>
                 <Col span={14}>
 						<div className="logo" onClick={(e) => { this.handleRegister() }}/>
@@ -95,18 +95,18 @@ class LayoutArea extends React.Component {
         </SubMenu>
 		<SubMenu key="31" title="CONTACT" className='menu-option-header' icon={<CaretDownOutlined />}>
           <Menu.Item key="32" className='menu-option-child'>Contact Us</Menu.Item>
-        </SubMenu> 
-		<SubMenu key="33" title="LOGIN" className='menu-option-header' icon={<CaretDownOutlined />}>*/}
-          {/* <Menu.Item key="1" className='menu-option-child hidden'><a onClick={this.clkRegistration} >Registration</a></Menu.Item> */}
-		  <Menu.Item key="2" className='menu-option-child'><a onClick={this.clkLogin} >Login</a></Menu.Item>
-      {/* <Menu.Item key="36" className='menu-option-child'><a onClick={this.clkForgotPassword} >Forgot Password</a></Menu.Item>
-        </SubMenu> */}
+        </SubMenu> >*/}
+		<SubMenu key="33" title="LOGIN" className='menu-option-header' icon={<CaretDownOutlined />}>
+          <Menu.Item key="1" className='menu-option-child hidden'><a onClick={this.clkRegistration} >Registration</a></Menu.Item>
+		  <Menu.Item key="37" className='menu-option-child'><a onClick={this.clkLogin} >Login</a></Menu.Item>
+     <Menu.Item key="36" className='menu-option-child'><a onClick={this.clkForgotPassword} >Forgot Password</a></Menu.Item>
+         </SubMenu>
       </Menu> 
       </Col>
       : null}
         {userdetails !== null ? 
        
-      <Col span={2}offset={8} style={{marginTop:15}}>
+      <Col span={2}offset={8} style={{marginTop:5}}>
       <Avatar style={{ backgroundColor: '#f56a00', marginRight:10 }}>{Array.from(userdetails)[0]}</Avatar>
       <LogoutOutlined 
       style={{ color: 'rgb(151 149 147)', marginLeft: '10px', fontSize: 'large'}}
