@@ -1,15 +1,19 @@
-import { Form, Input } from "antd"
-import { useState } from "react"
+import { Form, Input,Spin } from "antd"
+import { useEffect, useState } from "react"
+import { Redirect } from "react-router-dom";
+import { ROUTES } from "../routing/routeConstants";
 import { APIRequest, LoginUser ,ExcelfileRead,Alluser,ForgotPassword} from "./../APIManager"
 
 
 const ForgotPasswords=()=>{
-
+  const [form] = Form.useForm();
 
  const [data,setdata]=useState({
      email:"",
      password:"",
-     confirmpassord:""
+     confirmpassord:"",
+     isLogin: false,
+     loading: false,
  })
  const handelonchange=(e)=>{
     setdata((prev)=>(
@@ -24,7 +28,10 @@ const ForgotPasswords=()=>{
    return result;
  }
  const onsave =(e)=>{
-//      debugger
+  
+    
+    
+    setdata((prev)=>({ ...prev,loading:true}))
     let result=passwordcheck();
 if(result===true){
    let inputData1 = {
@@ -33,22 +40,27 @@ if(result===true){
 		}
            APIRequest.getPostService(ForgotPassword, inputData1)
 			.then((result) => {
-//                 debugger
 				if (result.status === 200) {
            console.log('Logged In : ',result)
-           setdata((prev)=>({ ...prev,email:" ",
-           password:" ",
-           confirmpassord:" "}))
-           alert("Change password success")
-           
-				}
+           form.resetFields();   
+           form.setFieldsValue({username: "",password:"",confirmpassord:""});
+                setdata((prev)=>({ ...prev,email:" ",
+                password:" ",
+                confirmpassord:" ",
+                loading:false}))
+                alert("Change password success")   
+        }
+          else{
+            setdata((prev)=>({ ...prev,
+            loading:false}))
+          }    
+				
 			})
 			.catch((error) => {
-//                 debugger
 			 console.log(error)
              setdata((prev)=>({ ...prev,email:" ",
              password:" ",
-             confirmpassord:" "}))
+             confirmpassord:" ", loading:false}))
              alert("incorrect mail")
            
 			}, 2000)
@@ -56,17 +68,34 @@ if(result===true){
 }
     
  }
+ useEffect(()=>{
+  
+  
+  let Auth= localStorage.getItem("AcTech_token");
+  let flag=false
+  if(Auth !=null){
+          flag=true
+  }
+      setdata({...data, isLogin:flag})
+},[])
+ if (data.isLogin) {
+  return <Redirect to={{ pathname: ROUTES.APPROVE }} />
+}
+    else{
 return(
+ 
     <>
-    <div className=" banner-section theme-banner ">
+    <Spin tip='Loading...' style={{margin:0,padding:0}} spinning={data.loading}>
+				
+    <div className=" banner-section theme-banner header-top ">
     <div className="breadcrumbs-container">
         <div className="row">
             <div className="col">
-                <div className="banner-content">
+                <div className="">
                     <h1 className="banner__page-title">Forgot Password</h1>                   
                      <div className="breadcrumbs-section">
                         <div id="crumbs" className="breadcrumbs"><span typeof="v:Breadcrumb">
-                            <a rel="v:url" property="v:title" >Home</a>
+                            <a rel="v:url" property="v:title" className="text-default-color" >Home</a>
                             </span> / <span className="current">Forgot Password</span></div>         
                         </div>
                 </div>
@@ -75,22 +104,23 @@ return(
     </div>
 </div>
 <Form
-    // initialvalues={{
-    //     username: data.email,
-    //     password: data.password,
-    //     conformpassword: data.confirmpassord,
-    // }}
+form={form}
+    initialvalues={{
+        username: data.email,
+        password: data.password,
+        conformpassword: data.confirmpassord,
+    }}
       layout='vertical'
      onFinish={onsave}
       className='login-form-content'
     >
       <Form.Item
         name="username"
-        //initialValue={data.email}
+        initialValue={data.email}
         rules={[{ required: true, message: 'Please input your email!' }]}
       >
         <Input 
-        style={{ borderRadius: " 25px" }}
+        // style={{ borderRadius: " 25px" }}
         placeholder="Email"
         id='username'
         type='email'
@@ -99,7 +129,7 @@ return(
             remember: true,
         }}
         onChange={(e)=>handelonchange(e)}
-      //  defaultValue={data.email}
+        defaultValue={data.email}
         value={data.email}/>
       </Form.Item>
 
@@ -111,17 +141,19 @@ return(
                 message: 'Please input your password!',
             },
         ]}
-       // initialValue={data.password}
+        initialValue={data.password}
       >
         <Input.Password  
+
         minLength={6}
-        style={{ borderRadius: " 25px" }}
+        // style={{ borderRadius: " 25px" }}
         id='password'
         type='password'
         placeholder='Password'
         name='password'
         onChange={(e)=>handelonchange(e)}
-        // defaultValue={data.password}
+         defaultValue={data.password}
+         autoComplete="new-password"
         value={data.password}/>
       </Form.Item>
       <Form.Item
@@ -140,38 +172,38 @@ return(
                 },
               }),
         ]}
-      //  initialValue={data.confirmpassord}
+        initialValue={data.confirmpassord}
       >
         <Input.Password  
         minLength={6}
-        style={{ borderRadius: " 25px" }}
+        // style={{ borderRadius: " 25px" }}
         id='confirmpassord'
         type='password'
         placeholder='Confirm password'
         name='confirmpassord'
         onChange={(e)=>handelonchange(e)}
-        // defaultValue={data.confirmpassord}
+        defaultValue={data.confirmpassord}
+        autoComplete="new-password"
         value={data.confirmpassord}/>
+        
       </Form.Item>
 
       <Form.Item >
         <button 
-        style={{
-				backgroundColor: "#0FA6C9",
-			}} 
+      
          type='submit'
-         className="login-form-btn"
+         className="login-form-btn submite-form-btn"
          >
           Submit
         </button>
       </Form.Item>
     </Form>
-
+</Spin>
                 </>
 
 )
 
 
 }
-
+}
   export default ForgotPasswords

@@ -32,7 +32,7 @@ class SideMenu extends React.Component {
 		})
 	}
     componentDidMount() {
-        debugger
+        
        let userflags= localStorage.getItem("User_flag");
        let flag="User"
        if(userflags !=null){
@@ -68,19 +68,19 @@ class SideMenu extends React.Component {
     cover={
         <div className="side-menu-logo" />
     }
-    actions={[
-      <SettingOutlined key="setting" />,
-      <EditOutlined key="edit" />,
-      <EllipsisOutlined key="ellipsis" />,
-    ]}
+    // actions={[
+    //   <SettingOutlined key="setting" />,
+    //   <EditOutlined key="edit" />,
+    //   <EllipsisOutlined key="ellipsis" />,
+    // ]}
   >
-    <Avatar  className="sidebar-span" style={{ backgroundColor: '#f56a00', width:"100px",height:"100px",marginTop:"10px",marginLeft: "25px" ,marginBottom:"10px"}}>{Array.from(userdetails)[0]}</Avatar>
+    <Avatar  className="sidebar-span" style={{ backgroundColor: '#f56a00', width:"85px",height:"85px",marginTop:"25px",marginLeft: "48px" ,marginBottom:"10px"}}>{Array.from(userdetails)[0]}</Avatar>
     {/* <Meta
     //   avatar={ <Avatar style={{ backgroundColor: '#f56a00'}}>{Array.from(userdetails)[0]}</Avatar>}
       title="Card title"
       description="This is the description"
     /> */}
-    <Meta
+    <Meta style={{textAlign:"center"}}
       title={userdetails}
       description={email}
     />
@@ -91,21 +91,21 @@ class SideMenu extends React.Component {
                        
 								
                                     <Menu.Item key='1' >
-                                    <TeamOutlined />
+                                  
 										<Link to={ROUTES.APPROVE} />
 								<span>Approve Users</span>	
 									</Menu.Item>
                                    
                                     {this.state.userFlag==="Admin"?(
 										<Menu.Item key='2'   >
-                                        <TeamOutlined />
+                                      
 											<Link to={ROUTES.PENDING} />
 											Pending Users
 										</Menu.Item>
                                          ):null}
                                         {this.state.userFlag==="Admin"?(
 										<Menu.Item key='3'  >
-                                              <TeamOutlined />
+                                             
 											<Link to={ROUTES.REJECT} />
 											Rejected User
 										</Menu.Item>

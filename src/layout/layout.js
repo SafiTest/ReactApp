@@ -18,24 +18,34 @@ class LayoutArea extends React.Component {
     this.state = {
     isLogin:false,
     isRegistration:false,
+    activeMenu:"Registration"
     }
 }
   clkLogin = () => {
+    this.setState({...this.state,activeMenu:"Login"})
     this.props.history.push({ pathname: ROUTES.LOGIN })
 	}
-
+componentDidMount(){
+  
+  var element = document.getElementById("publiclayout");
+  element.classList.remove("hidden");
+  element.classList.add("privatelayout");
+}
   clkRegistration = () => {
+    this.setState({...this.state,activeMenu:"Registration"})
     this.props.history.push({ pathname: ROUTES.REGISTRATION })
 	}
   clkForgotPassword = () => {
+    this.setState({...this.state,activeMenu:"Forgot Password"})
     this.props.history.push({ pathname: ROUTES.FORGOTPASSWORD })
 	}
 
   handleRegister =() =>{
+    this.setState({...this.state,activeMenu:"Registration"})
     this.props.history.push({ pathname: ROUTES.REGISTRATION })
   }
   handleLogout =()=>{
-    debugger
+    
     localStorage.clear();
     alert("Logout successfully")
     this.props.history.push({ pathname: ROUTES.LOGIN })
@@ -47,7 +57,7 @@ class LayoutArea extends React.Component {
 		return (
 			<>
 					<Layout   className="layout publiclayout">
-						<Header  id="publiclayout">
+						<Header  id="publiclayout"  style={{width:"100%",zIndex:1,position:"fixed",top:0}}>
               <Row>
                 <Col span={14}>
 						<div className="logo" onClick={(e) => { this.handleRegister() }}/>
@@ -96,12 +106,12 @@ class LayoutArea extends React.Component {
 		<SubMenu key="31" title="CONTACT" className='menu-option-header' icon={<CaretDownOutlined />}>
           <Menu.Item key="32" className='menu-option-child'>Contact Us</Menu.Item>
         </SubMenu> >*/}
-		<SubMenu key="33" title="LOGIN" className='menu-option-header' icon={<CaretDownOutlined />}>
-          <Menu.Item key="1" className='menu-option-child hidden'><a onClick={this.clkRegistration} >Registration</a></Menu.Item>
+		<SubMenu key="33" title={"LOGIN"} className='menu-option-header' icon={<CaretDownOutlined />}>
+          <Menu.Item key="1" className='menu-option-child'><a onClick={this.clkRegistration} >Registration</a></Menu.Item>
 		  <Menu.Item key="37" className='menu-option-child'><a onClick={this.clkLogin} >Login</a></Menu.Item>
      <Menu.Item key="36" className='menu-option-child'><a onClick={this.clkForgotPassword} >Forgot Password</a></Menu.Item>
          </SubMenu>
-      </Menu> 
+      </Menu>     
       </Col>
       : null}
         {userdetails !== null ? 
@@ -119,7 +129,7 @@ class LayoutArea extends React.Component {
 						<Content>
 							<ContentPage/>
 						</Content>
-						<Footer><FooterPage /></Footer>
+						<Footer style={{ position: "fixed", bottom: "0" ,width:"100%"}}><FooterPage /></Footer>
 					</Layout>
 			</>
 		)

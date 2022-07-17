@@ -16,10 +16,10 @@ import { ROUTES } from '../routing/routeConstants';
   const { Header, Sider, Content } = Layout;
   
   const App = (props) => {
-    debugger
+    
     const [collapsed, setCollapsed] = useState(false);
     useEffect(()=>{
-        debugger
+        
         var element = document.getElementById("publiclayout");
   element.classList.add("hidden");
   element.classList.add("privatelayout");
@@ -34,6 +34,7 @@ import { ROUTES } from '../routing/routeConstants';
           className="site-layout-background"
           style={{
             padding: 0,
+              position:'sticky' ,top:0 ,width:"100%" ,zIndex:1
           }}
         >
          <HeaderPage props={props}/>
@@ -45,6 +46,7 @@ import { ROUTES } from '../routing/routeConstants';
               margin: '24px 16px',
               padding: 24,
               minHeight: 280,
+            // overflow: 'scroll' 
             }}
           >
            	<ContentPage/>

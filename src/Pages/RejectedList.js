@@ -21,18 +21,18 @@ class RejectedList extends React.Component {
 		this.fetch = this.fetch.bind(this)
 	}
 	fetch() {
-		debugger
+		
 		this.setState({ loading: true })
 		APIRequest.getGetService(GetRejectedList)
 			.then((result) => {
-				debugger
+				
 				if (result.status === 200) {
 					this.setState({ ...this.state, data: result.result, loading: false })
 					console.log("User List Data : ", result)
 				}
 			})
 			.catch((error) => {
-				debugger
+				
 				this.setState({ loading: false })
 				console.log(error)
 			}, 2000)
@@ -122,7 +122,7 @@ class RejectedList extends React.Component {
 	}
 
 	onSelectChange = (selectedRowKeys) => {
-		debugger
+		
 		console.log("selectedRowKeys changed: ", selectedRowKeys)
 		this.setState({ selectedRowKeys })
 	}
@@ -207,12 +207,12 @@ class RejectedList extends React.Component {
 						<div className='breadcrumbs-container'>
 							<div className='row'>
 								<div className='col'>
-									<div className='banner-content'>
+									<div className=''>
 										<h1 className='banner__page-title'>Rejected List</h1>
 										<div className='breadcrumbs-section'>
 											<div id='crumbs' className='breadcrumbs'>
 												<span typeof='v:Breadcrumb'>
-													<a rel='v:url' property='v:title'>
+													<a rel='v:url' property='v:title'  className="text-default-color">
 														Home
 													</a>
 												</span>{" "}
@@ -225,13 +225,13 @@ class RejectedList extends React.Component {
 						</div>
 					</div>
 					<div className='bg-white py-8 font-sans table-content-container'>
-						<span style={{ marginLeft: 8 }}>
+						{/* <span style={{ marginLeft: 8 }}>
 							{hasSelected ? `Selected ${this.state.selectedRowKeys.length} items` : ""}
-						</span>
+						</span> */}
 					
 						{this.state.data.length > 0 ? (
-							<Table
-								rowSelection={rowSelection}
+							<Table style={{paddingBottom:"30px"}}
+							//	rowSelection={rowSelection}
 								dataSource={this.state.data}
 								columns={columns}
 								rowKey={(items) => items._id}

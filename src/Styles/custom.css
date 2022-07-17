@@ -26,7 +26,7 @@
     height: 75px;
     /* padding: 0 50px; */
     color: rgba(0, 0, 0, 0.85);
-    line-height: 64px;
+    line-height: 52px;
     background: #ffffff;
 }
 .ant-menu.ant-menu-dark, .ant-menu-dark .ant-menu-sub, .ant-menu.ant-menu-dark .ant-menu-sub {
@@ -71,7 +71,7 @@
 .ant-menu-dark .ant-menu-item:hover, .ant-menu-dark .ant-menu-item-active, .ant-menu-dark .ant-menu-submenu-active, .ant-menu-dark .ant-menu-submenu-open, .ant-menu-dark .ant-menu-submenu-selected, .ant-menu-dark .ant-menu-submenu-title:hover
 {
     background: #ffffff;
-    color: #00CFC8 !important;
+    color: #946139 !important;
 }
 
 .ant-menu-dark .ant-menu-item, .ant-menu-dark .ant-menu-item-group-title, .ant-menu-dark .ant-menu-item > a, .ant-menu-dark .ant-menu-item > span > a
@@ -80,7 +80,7 @@
 }
 .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected
 {
-    background-color: #00CFC8 !important;
+    background-color: #946139 !important;
     color: #ffffff !important;
 }
 /* .ant-menu-dark.ant-menu-submenu-popup
@@ -105,8 +105,8 @@ text-transform: uppercase;
 .theme-banner {
     background: #f5f5f5 url() no-repeat;
     padding: 1.2rem 0;
-    margin-left: 5px;
-    margin-right: 5px;
+    /* margin-left: 5px;
+    margin-right: 5px; */
     text-align: left;
     position: relative;
 }
@@ -116,18 +116,30 @@ text-transform: uppercase;
     padding-left: 20px;
     max-width: 540px;
 }
-.theme-banner .banner-content .banner__page-title {
+.theme-banner .banner-content  {
     font-size: 2rem;
     line-height: 1;
     margin-bottom: 1rem;
 }
-.theme-banner .banner-content .breadcrumbs, .theme-banner .banner-content .woocommerce-breadcrumb {
+.banner__page-title {
+    font-size: 20px;
+    line-height: 1;
+    margin-top: 10px;
+}
+.theme-banner .banner-content, .theme-banner .banner-content .woocommerce-breadcrumb {
     font-family: "Open Sans", sans-serif;
     font-weight: 200;
     font-size: large;
+    margin-top: 40px;
 }
 .theme-banner .breadcrumbs {
     color: #151D2A;
+}
+ .breadcrumbs {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 200;
+    font-size: 15px;
+    /* margin-top: 40px; */
 }
 .theme-banner .banner-content .breadcrumbs span, .theme-banner .banner-content .woocommerce-breadcrumb span {
     color: #333333;
@@ -217,7 +229,8 @@ margin-bottom: 20px;
 }
 .table-content-container {
     /* margin: 2%; */
-    width: 100%;
+    width: fit-content;
+    /* width: 100%; */
     /* margin-left: 50px; */
 }
 
@@ -292,12 +305,13 @@ padding-top:20px;
   }
 
   .login-form-btn{
-    background-color: rgb(110, 121, 111) !important;
+    background-color: #946139 !important;
     color: white !important;
     font-family: Roboto, sans-serif !important;
     font-weight: 600 !important;
-    width: 82px !important;
-    border: 1px solid black !important;
+    width: 100% !important;
+    height: 30px;
+    border: 1px solid #946139 !important;
   }
   .ant-layout-content{
     margin: 4px !important;
@@ -330,4 +344,62 @@ padding-top:20px;
   font-size: 50px;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  }
+  .error-msg{
+    color:red !important
+  }
+  .ant-layout-sider-children {
+    height: 100%;
+    min-height: 100% !important;
+    margin-top: -0.1px;
+    background-color: white;
+    padding-top: 0.1px;
+    position: fixed;
+}
+.ant-layout-sider {
+   
+    background: white;
+}
+.ant-card-body {
+    padding: 10px !important;
+}
+.ant-menu > .ant-menu-item:hover,
+.ant-menu > .ant-menu-submenu:hover,
+.ant-menu > .ant-menu-item-active,
+.ant-menu> .ant-menu-submenu-active,
+.ant-menu > .ant-menu-item-open,
+.ant-menu> .ant-menu-submenu-open,
+.ant-menu > .ant-menu-item-selected,
+.ant-menu > .ant-menu-submenu-selected {
+  color: #946139 !important;
+  /* border-bottom: 2px solid red; */
+}
+.ant-menu-dark .ant-menu-item-active>a, .ant-menu-dark .ant-menu-item-active>span>a, .ant-menu-dark .ant-menu-item:hover>a, .ant-menu-dark .ant-menu-item:hover>span>a, .ant-menu-dark .ant-menu-submenu-active>a, .ant-menu-dark .ant-menu-submenu-active>span>a, .ant-menu-dark .ant-menu-submenu-open>a, .ant-menu-dark .ant-menu-submenu-open>span>a, .ant-menu-dark .ant-menu-submenu-selected>a, .ant-menu-dark .ant-menu-submenu-selected>span>a, .ant-menu-dark .ant-menu-submenu-title:hover>a, .ant-menu-dark .ant-menu-submenu-title:hover>span>a {
+    color: #946139 !important;
+}
+.btn-color{
+    background-color: #946139 !important;
+    color: white !important;
+}
+.ant-layout-header {
+    padding: 0px !important;
+}
+.privatelayout{
+    padding: 0 50px !important;
+}
+.ant-spin-dot-item {
+    background-color: #946139 !important
+  }
+  .ant-spin-text {
+    color: #946139 !important
+  }
+  .text-default-color{
+    color: #946139 !important
+  }
+  .submite-form-btn{
+    /* border-radius: 15px; */
+    height: 30px;
+  }
+  .header-top{
+    margin-top: 50px !important;
   }

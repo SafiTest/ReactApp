@@ -1,10 +1,38 @@
 import React, { useCallback } from "react"
 import "antd/dist/antd.min.css";
 import "../Styles/custom.css"
-import { withRouter } from "react-router-dom"
+import { Redirect, withRouter } from "react-router-dom"
 import { Row, Col, Button, Modal, Form, Input, InputNumber } from 'antd'
-import { APIRequest, SignupUser, CreateOrder } from "./../APIManager"
+import { APIRequest, SignupUser, CreateOrder, mailcheck } from "./../APIManager"
 import { Alert } from "bootstrap";
+import { ROUTES } from "../routing/routeConstants";
+
+// const [form] = Form.useForm();
+const info = () => {
+  Modal.info({
+    title: 'This is a notification message',
+    content: (
+      <div>
+        <p>some messages...some messages...</p>
+        <p>some messages...some messages...</p>
+      </div>
+    ),
+
+    onOk() {},
+  });
+};
+const success = () => {
+  Modal.success({
+    title: 'Payment Successfull!',
+    content: ' ',
+  });
+};
+const error = () => {
+  Modal.error({
+    title: 'Payment Failed!',
+    content: 'Something went worng',
+  });
+};
 // import useRazorpay from "react-razorpay";
 class Registration extends React.Component {
   constructor(props) {
@@ -29,75 +57,150 @@ class Registration extends React.Component {
       confirmPassword: '',
       isLogin: false,
       isModalVisible: false,
+      ispaymentModal:false,
+      ispaymentModalsucss:false,
       amount: 0,
-      type: ""
+      type: "",
+      errors:{}
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.formref = React.createRef();
     this.onChange = this.onChange.bind(this);
     this.handlePayment = this.handlePayment.bind(this);
-    this.handleOk = this.handleOk.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.openPayModal = this.openPayModal.bind(this);
   }
-  handleSubmit = () => {
-//     debugger
-    console.log('login')
-    let inputData = {
-      name: this.state.name,
-      branch: this.state.branch,
-      email: this.state.email,
-      yearofPassing: this.state.yearofPassing,
-      occupation: this.state.occupation,
-      currentCompanyName: this.state.currentCompanyName,
-      areaofExpertise: this.state.areaofExpertise,
-      country: this.state.country,
-      orderID: this.state.orderID,
-      mobile: this.state.mobile,
-      address: this.state.address,
-      street: this.state.street,
-      city: this.state.city,
-      postalcode: this.state.postalcode,
-      joiningDate: this.state.joiningDate,
-      password: this.state.password
-    }
-    console.log('login', inputData)
-    APIRequest.getPostService(SignupUser, inputData)
-      .then((result) => {
-        if (result.status === 200) {
-          console.log('Logged In : ', result)
-        }
-      })
-      .catch((error) => {
-        console.log(error)
-      }, 2000)
-    this.setState((prev) => ({ ...prev, isLogin: true }));
-  }
+ 
 
   onChange(e) {
-//     debugger
+//     
     this.setState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
-  handleOk() {
-    this.setState((prev) => ({ ...prev, isModalVisible: false }));
-  };
+
 
   handleCancel() {
-    this.setState((prev) => ({ ...prev, isModalVisible: false }));
+    if(this.formref.current !=null){
+      let value=  this.formref.current.resetFields();
+      this.formref.current.setFieldsValue({ name: '',
+      branch: '',
+      email: '',
+      yearofPassing: '',
+      occupation: '',
+      currentCompanyName: '',
+      areaofExpertise: '',
+      country: '',
+      orderID: 0,
+      mobile: '',
+      address: '',
+      street: '',
+      city: '',
+      postalcode: '',
+      joiningDate: '',
+      password: '',
+      confirmPassword: '',
+      amount: 0,
+      type: "",
+      errors:{}});
+         }
+    this.setState((prev) => ({ ...prev, isModalVisible: false , branch: '',
+    email: '',
+    yearofPassing: '',
+    occupation: '',
+    currentCompanyName: '',
+    areaofExpertise: '',
+    country: '',
+    orderID: 0,
+    mobile: '',
+    address: '',
+    street: '',
+    city: '',
+    postalcode: '',
+    joiningDate: '',
+    password: '',
+    confirmPassword: '',}));
   };
   handlePayment(amt, type) {
-    this.setState((prev) => ({ ...prev, isModalVisible: true, amount: amt, type: type }));
+    
+    if(this.formref.current !=null){
+      let value=  this.formref.current.resetFields();
+      this.formref.current.setFieldsValue({ name: '',
+      branch: '',
+      email: '',
+      yearofPassing: '',
+      occupation: '',
+      currentCompanyName: '',
+      areaofExpertise: '',
+      country: '',
+      orderID: 0,
+      mobile: '',
+      address: '',
+      street: '',
+      city: '',
+      postalcode: '',
+      joiningDate: '',
+      password: '',
+      confirmPassword: '',
+      amount: 0,
+      type: "",
+      errors:{}});
+         }
+    this.setState((prev) => ({ ...prev, isModalVisible: true, amount: amt, type: type, branch: '',
+    email: '',
+    yearofPassing: '',
+    occupation: '',
+    currentCompanyName: '',
+    areaofExpertise: '',
+    country: '',
+    orderID: 0,
+    mobile: '',
+    address: '',
+    street: '',
+    city: '',
+    postalcode: '',
+    joiningDate: '',
+    password: '',
+    confirmPassword: '', }));
   }
   componentDidMount() {
-    this.setState({ ...this.state })
+  
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.async = true;
     document.body.appendChild(script);
+    let Auth= localStorage.getItem("AcTech_token");
+		let flag=false
+		if(Auth !=null){
+            flag=true
+		}
+        this.setState({...this.state, isLogin:flag})
   }
+ emailvlidate= async()=>{
+let  result=true
+  
+let checkdata=await  APIRequest.getGetService(mailcheck+"/"+this.state.email)
+ 
+let errors={};
+if(checkdata.result !==null){
+ result=false;
+  errors["email"]="Email address already exists"
+}
+this.setState({...this.state,errors:errors})
+
+return result;
+
+ 
+}
+
+  openPayModal = async(e)=> {
+    
 
 
-  openPayModal() {
-//     debugger
+    let mailcheck= await this.emailvlidate();
+    if(mailcheck==true){
+
+     
+    this.setState(()=>({...this.state,errors:{}}))
+   
+//     
     var amount = this.state.amount * 100; //Razorpay consider the amount in paise
 var self=this
     let inputData = {
@@ -146,14 +249,19 @@ var self=this
           console.log('login', inputData)
           APIRequest.getPostService(SignupUser, inputData)
             .then((result) => {
-                             debugger
+                             
               if (result.status === 201) {
                
-                self.setState((prev) => ({ ...prev, isModalVisible: false, amount: 0, type: "" }),()=> alert("Signup successfully"));
+                self.setState((prev) => ({ ...prev, isModalVisible: false, amount: 0, type: "" }),()=> 
+                success());
+              }
+              else{
+                error();
               }
             })
             .catch((error) => {
-//               debugger
+//               
+error();
               console.log(error)
             }, 2000)
         }
@@ -173,7 +281,7 @@ var self=this
     };
     APIRequest.getPostService(CreateOrder, { "amount": amount, "currency": "INR" })
       .then(res => {
-//         debugger
+//         
         options.order_id = res.id;
         options.amount = res.amount;
         console.log(options)
@@ -181,22 +289,32 @@ var self=this
         rzp1.open();
       })
       .catch(e => console.log(e))
-
+    }
+    else{
+      let errors={}
+      errors["email"]="Email address already exists"
+      errors["overall"]="all mandatory fields have to be filled"
+   
+    this.setState(()=>({...this.state,errors:errors}))
+    }
   };
   render() {
-
+    if (this.state.isLogin) {
+			return <Redirect to={{ pathname: ROUTES.APPROVE }} />
+		}
+        else{
     return (
 
       <>
-        <div class=" banner-section theme-banner ">
+        <div class=" banner-section theme-banner body-overflow header-top ">
           <div class="breadcrumbs-container">
             <div class="row">
               <div class="col">
-                <div class="banner-content">
+                <div class="">
                   <h1 class="banner__page-title">Registration</h1>
                   <div class="breadcrumbs-section">
                     <div id="crumbs" class="breadcrumbs"><span typeof="v:Breadcrumb">
-                      <a rel="v:url" property="v:title" >Home</a>
+                      <a rel="v:url" property="v:title" className="text-default-color" >Home</a>
                     </span> / <span class="current">Registration</span></div>
                   </div>
                 </div>
@@ -226,8 +344,8 @@ var self=this
                   <h4 className="reg-content-card-h4">Life Time Membership Fee</h4>
                   <p className="reg-content-card-p">Membership fee of ₹ 1,000/- </p>
                   <div className="reg-content-card-btn" >
-                    <Button type="button" onClick={() => this.handlePayment(1000, "Life Time")} style={{
-                      backgroundColor: '#6E796F', color: 'white', fontFamily: "Roboto, Sans-serif",
+                    <Button type="button" className="btn-color" onClick={() => this.handlePayment(1000, "Life Time")} style={{
+                       fontFamily: "Roboto, Sans-serif",
                       fontWeight: 600
                     }}>
                       Pay Online
@@ -238,8 +356,8 @@ var self=this
                   <h4 className="reg-content-card-h4">Patron Membership Fee</h4>
                   <p className="reg-content-card-p">Membership fee of ₹ 5,00,000/- </p>
                   <div className="reg-content-card-btn" >
-                    <Button style={{
-                      backgroundColor: '#6E796F', color: 'white', fontFamily: "Roboto, Sans-serif",
+                    <Button className="btn-color" style={{
+                     fontFamily: "Roboto, Sans-serif",
                       fontWeight: 600
                     }} type="button" onClick={() => this.handlePayment(500000, 'Patron Membership')}
                     >
@@ -282,11 +400,16 @@ var self=this
           </div>
         </div>
 
-        <Modal title="Sign Up" visible={this.state.isModalVisible} onCancel={this.handleCancel} footer={null}>
+        <Modal  style={{
+          top: 20,
+        }} title="Sign Up" visible={this.state.isModalVisible} onCancel={this.handleCancel} footer={null}>
           <Form
+          ref={this.formref}
+          {...this.props}
+        //  form={form}
             layout='vertical'
             className='reg-form-content'
-            onFinish={this.handleSubmit}
+            onFinish={(e)=>this.openPayModal(e)}
           >
             <Form.Item
               label="Full Name"
@@ -331,21 +454,36 @@ var self=this
             <Form.Item
               label="E-mail"
               name="email"
+              required={true}
               initialValue={this.state.email}
-              rules={[{ required: true, message: 'Please input your email!' }]}
+              rules={ [
+                  {
+                      required: false,
+                      pattern: new RegExp("/\S+@\S+\.\S+/"),
+                      message:
+                          'Enter a valid email address!',
+                  }
+              ]}
+            //  rules={[{ required: true, message: 'Please input your email!' }]}
             >
               <Input
                 // style={{ borderRadius: " 25px" }}
                 placeholder="email"
                 id='email'
                 type='email'
+                required={true}
                 name='email'
                 initialvalues={{
                   remember: true,
                 }}
+                autoComplete={"off"}
                 onChange={this.onChange}
+                onBlur={()=>this.emailvlidate()}
                 defaultValue={this.state.email}
-                value={this.state.email} />
+                value={this.state.email} 
+             
+  />
+  <span className="error-msg">{this.state.errors.email}</span>
             </Form.Item>
 
             <Form.Item
@@ -595,6 +733,7 @@ var self=this
                 name='password'
                 onChange={this.onChange}
                 defaultValue={this.state.password}
+                autoComplete="new-password"
                 value={this.state.password} />
             </Form.Item>
 
@@ -602,6 +741,7 @@ var self=this
               label="Confirm Password"
               name="confirmPassword"
               dependencies={['password']}
+              
               rules={[
                 {
                   required: true,
@@ -625,11 +765,13 @@ var self=this
                 id='confirmPassword'
                 type='Password'
                 placeholder='confirmPassword'
+                autoComplete="new-password"
                 name='confirmPassword'
                 onChange={this.onChange}
                 defaultValue={this.state.confirmPassword}
                 value={this.state.confirmPassword} />
             </Form.Item>
+            <span className="error-msg">{this.state.errors.overall}</span>
             <Form.Item >
               <button
                 style={{
@@ -637,10 +779,10 @@ var self=this
                   marginRight: '10px'
                 }}
                 type='submit'
-                className="login-form-btn "
-                onClick={(e) => { this.openPayModal() }}
+                className="login-form-btn  "
+                onSubmit={(e) => { this.openPayModal(e) }}
               >
-                Pay ₹ 1,000/-
+                Pay ₹ {this.state.amount}/-
               </button>
               {/* 
         <button 
@@ -656,9 +798,14 @@ var self=this
             </Form.Item>
           </Form>
         </Modal>
+
+        <Modal title="Payment" visible={this.state.ispaymentModal} onCancel={this.handleCancel} footer={null}>
+          <label> pay</label>
+       </Modal>
       </>
     )
   }
+}
 }
 
 export default (withRouter(Registration))

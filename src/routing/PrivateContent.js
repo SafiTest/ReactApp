@@ -6,6 +6,7 @@ import RejectedList from "../Pages/RejectedList.js"
 import ApprovedList from "../Pages/ApprovedList"
 import { ROUTES } from "./routeConstants"
 import PendingList from "../Pages/PendingList"
+import FourNotFour from "../Pages/Page404"
 const { Content } = Layout
 
 class contentArea extends React.Component {
@@ -19,7 +20,7 @@ class contentArea extends React.Component {
 						<Route exact path={ROUTES.PENDING} component={PendingList} />
 						<Route exact path={ROUTES.APPROVE} component={ApprovedList} />
 						<Route exact path={ROUTES.REJECT} component={RejectedList} />
-						
+						<Route component={FourNotFour} />
 			
 					</Switch>
 			</div>

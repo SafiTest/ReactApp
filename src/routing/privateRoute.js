@@ -11,7 +11,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={(props) => {
       /* Authenticate user by auth token */
-      debugger
+      
       var authToken = localStorage.getItem("AcTech_token")
       if (
         authToken === null ||

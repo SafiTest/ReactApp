@@ -22,24 +22,24 @@ class PendingList extends React.Component {
 		this.fetch = this.fetch.bind(this)
 	}
 	fetch() {
-		debugger
+		
 		this.setState({ loading: true })
 		APIRequest.getGetService(GetPendingList)
 			.then((result) => {
-				debugger
+				
 				if (result.status === 200) {
 					this.setState({ ...this.state, data: result.result, loading: false })
 					console.log("User List Data : ", result)
 				}
 			})
 			.catch((error) => {
-				debugger
+				
 				this.setState({ loading: false })
 				console.log(error)
 			}, 2000)
 	}
     onApproveRejectclick(flag) {
-		debugger
+		
 		this.setState({ loading: true })
         let inputData = {
 			ids: this.state.selectedRowKeys,
@@ -47,7 +47,7 @@ class PendingList extends React.Component {
 		}
            APIRequest.getPostService(UpdateStatus, inputData)
 			.then((result) => {
-				debugger
+				
 				if (result.status === 201) {
 					this.setState({ ...this.state, selectedRowKeys: [], loading: false })
 					if(flag==1){
@@ -61,7 +61,7 @@ class PendingList extends React.Component {
 				}
 			})
 			.catch((error) => {
-				debugger
+				
 				this.setState({ loading: false })
 				console.log(error)
 			}, 2000)
@@ -156,7 +156,7 @@ class PendingList extends React.Component {
 	}
 
 	onSelectChange = (selectedRowKeys) => {
-		debugger
+		
 		console.log("selectedRowKeys changed: ", selectedRowKeys)
 		this.setState({ selectedRowKeys })
 	}
@@ -241,12 +241,12 @@ class PendingList extends React.Component {
 						<div className='breadcrumbs-container'>
 							<div className='row'>
 								<div className='col'>
-									<div className='banner-content'>
+									 <div /*className='banner-content' */> 
 										<h1 className='banner__page-title'>Pending List</h1>
 										<div className='breadcrumbs-section'>
 											<div id='crumbs' className='breadcrumbs'>
 												<span typeof='v:Breadcrumb'>
-													<a rel='v:url' property='v:title'>
+													<a rel='v:url' property='v:title' className="text-default-color">
 														Home
 													</a>
 												</span>{" "}
@@ -263,12 +263,12 @@ class PendingList extends React.Component {
 							{hasSelected ? `Selected ${this.state.selectedRowKeys.length} items` : ""}
 						</span>
                         {this.state.userFlag==="Admin"?<>
-						<Button onClick={()=>this.onApproveRejectclick(1)}>Approve</Button>
-						<Button  onClick={()=>this.onApproveRejectclick(2)}>Reject</Button>
+						<Button className="btn-color" onClick={()=>this.onApproveRejectclick(1)}>Approve</Button>
+						<Button className="btn-color"  onClick={()=>this.onApproveRejectclick(2)}>Reject</Button>
                         </>:null}
 						{this.state.data.length > 0 ? (
-							<Table
-								rowSelection={rowSelection}
+							<Table style={{paddingBottom:"30px"}}
+								rowSelection={this.state.userFlag==="Admin"?rowSelection:{}}
 								dataSource={this.state.data}
 								columns={columns}
 								rowKey={(items) => items._id}

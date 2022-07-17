@@ -7,14 +7,17 @@ import { ROUTES } from "../routing/routeConstants";
 class headerArea extends React.Component {
 	
 	constructor(props) {
-		debugger
+		
 		super(props);
 		
 	}
 	handleLogout =()=>{
-		debugger
+		
 		localStorage.clear();
 		alert("Logout successfully")
+		var element = document.getElementById("publiclayout");
+		element.classList.remove("hidden");
+		element.classList.add("privatelayout");
 		this.props.props.history.push({ pathname: ROUTES.LOGIN })
 	  }
 	render() {

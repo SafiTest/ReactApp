@@ -1,7 +1,7 @@
 import React from "react"
 import "antd/dist/antd.min.css";
 import "../Styles/custom.css"
-import { Form, Input } from "antd"
+import { Form, Input ,Spin} from "antd"
 import { withRouter, Redirect } from "react-router-dom"
 import { APIRequest, LoginUser ,ExcelfileRead,Alluser,ForgotPassword} from "./../APIManager"
 import { ROUTES } from "../routing/routeConstants";
@@ -13,39 +13,29 @@ class Login extends React.Component {
             this.state = {
                 username:'',
                 password:'',
-                isLogin:false
+                isLogin:false,
+                loading:false
             }
             this.handleSubmit = this.handleSubmit.bind(this);
             this.onChange = this.onChange.bind(this);
     }
     handleSubmit = () =>{
-        debugger
+        
         console.log('login')
         let inputData = {
 			email: this.state.username,
 			password: this.state.password
 		}
-      
-    //     APIRequest.getPostService(ExcelfileRead, inputData)
-    //     .then((result) => {
-    //         debugger
-    //         if (result.status === 200) {
-    //    console.log('Logged In : ',result)
-    //         }
-    //     })
-    //     .catch((error) => {
-    //         debugger
-    //      console.log(error)
-    //     }, 2000)
         console.log('login',inputData)
         let self=this
+        self.setState({...this.state,loading:true});
         APIRequest.getPostService(LoginUser, inputData)
 			.then((res) => {
-                debugger
+                
 				if (res.status === 200) {
            console.log('Logged In : ',res)
            alert("Login successfully")
-           self.setState({...this.state,isLogin:true});
+           self.setState({...this.state,isLogin:true,loading:false});
            localStorage.setItem("AcTech_token",res.token)
            localStorage.setItem("User_name", res.result.name)
            localStorage.setItem("User_email", res.result.email)
@@ -57,10 +47,10 @@ class Login extends React.Component {
 				}
 			})
 			.catch((error) => {
-//                 debugger
+//                 
 			 console.log(error)
              alert("UserName & Password incorrect please try again")
-             self.setState({...this.state,isLogin:false});
+             self.setState({...this.state,isLogin:false,loading:false});
 			}, 2000)
       
     }
@@ -70,25 +60,34 @@ class Login extends React.Component {
             }
 
         componentDidMount() {
-        this.setState({...this.state})
+      
+        let Auth= localStorage.getItem("AcTech_token");
+		let flag=false
+		if(Auth !=null){
+            flag=true
+		}
+        this.setState({...this.state, isLogin:flag})
         }
     render() {
+        
         if (this.state.isLogin) {
-			return <Redirect to={{ pathname: ROUTES.HOME }} />
+			return <Redirect to={{ pathname: ROUTES.APPROVE }} />
 		}
+        else{
 
             return (
-            
+            	<Spin tip='Loading...' style={{margin:0,padding:0}} spinning={this.state.loading}>
+				
 <div style={{height: "calc(80vh)"}}>
-<div className=" banner-section theme-banner " >
+<div className=" banner-section theme-banner  header-top" >
     <div className="breadcrumbs-container">
         <div className="row">
             <div className="col">
-                <div className="banner-content">
+                <div className="">
                     <h1 className="banner__page-title">Login</h1>                   
                      <div className="breadcrumbs-section">
                         <div id="crumbs" className="breadcrumbs"><span typeof="v:Breadcrumb">
-                            <a rel="v:url" property="v:title" >Home</a>
+                            <a rel="v:url" property="v:title"  className="text-default-color" >Home</a>
                             </span> / <span className="current">Login</span></div>         
                         </div>
                 </div>
@@ -143,7 +142,7 @@ class Login extends React.Component {
         value={this.state.password}/>
       </Form.Item>
 
-      <Form.Item >
+      <Form.Item style={{width:"100%"}} >
         <button 
          type='submit'
          className="login-form-btn"
@@ -154,9 +153,10 @@ class Login extends React.Component {
     </Form>
 
                 </div>
-                
+                </Spin>
             )
     }
+}
 }
 
 export default (withRouter(Login))

@@ -21,18 +21,18 @@ class ApprovedList extends React.Component {
 		this.fetch = this.fetch.bind(this)
 	}
 	fetch() {
-		debugger
+		
 		this.setState({ loading: true })
 		APIRequest.getGetService(GetMembershipList)
 			.then((result) => {
-				debugger
+				
 				if (result.status === 200) {
 					this.setState({ ...this.state, data: result.result, loading: false })
 					console.log("User List Data : ", result)
 				}
 			})
 			.catch((error) => {
-				debugger
+				
 				this.setState({ loading: false })
 				console.log(error)
 			}, 2000)
@@ -122,13 +122,20 @@ class ApprovedList extends React.Component {
 	}
 
 	onSelectChange = (selectedRowKeys) => {
-		debugger
+		
 		console.log("selectedRowKeys changed: ", selectedRowKeys)
 		this.setState({ selectedRowKeys })
 	}
 
 	render() {
 		const columns = [
+			// {
+			// 	title: 'S.no',
+			// 	key: 'sno',
+			// 	width: '10px',
+			// 	render: (text, object, index) =>  index + 1
+			  
+			//   },
 			{
 				title: "Name",
 				dataIndex: "name",
@@ -207,12 +214,12 @@ class ApprovedList extends React.Component {
 						<div className='breadcrumbs-container'>
 							<div className='row'>
 								<div className='col'>
-									<div className='banner-content'>
+									<div className=''>
 										<h1 className='banner__page-title'>Approved List</h1>
 										<div className='breadcrumbs-section'>
 											<div id='crumbs' className='breadcrumbs'>
 												<span typeof='v:Breadcrumb'>
-													<a rel='v:url' property='v:title'>
+													<a rel='v:url' property='v:title'  className="text-default-color">
 														Home
 													</a>
 												</span>{" "}
@@ -227,21 +234,22 @@ class ApprovedList extends React.Component {
 					<div className='bg-white py-8 font-sans table-content-container'>
                         <div className="">
                        
-						<span style={{ marginLeft: 8 }}>
+						{/* <span style={{ marginLeft: 8 }}>
 							{hasSelected ? `Selected ${this.state.selectedRowKeys.length} items` : ""}
-						</span>
+						</span> */}
                         </div>
 						{/* <Button>Approve</Button>
 						<Button>Reject</Button> */}
 						{this.state.data.length > 0 ? (
 							<Table
-								rowSelection={rowSelection}
+							style={{paddingBottom:"30px"}}
+								// rowSelection={rowSelection}
 								dataSource={this.state.data}
 								columns={columns}
 								rowKey={(items) => items._id}
 							/>
 						) : (
-							<h1>No Data</h1>
+							<h1 style={{textAlign:"center"}}>No Data</h1>
 						)}
 					</div>
 				</Spin>

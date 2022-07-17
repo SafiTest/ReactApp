@@ -49,7 +49,7 @@ class footerArea extends React.Component {
                     </Col>
                     </Row>
                 </div> */}
-                <div className="footer-section-copyright-header">
+                <div className="footer-section-copyright-header" >
                 <Row gutter={[16, 16]}>
                 <Col span={8}> 
                 © Copyright ACTech Alumni. All rights reserved
